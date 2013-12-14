@@ -1,0 +1,10 @@
+/* ==========================================================================
+   Layout.css - Author: Andre Silva | andre1050@gmail.com;
+   ========================================================================== */
+
+    /* Styling the document structure and holding the modules together. */
+
+.wrapper {
+    width: 960px;
+    margin: 0 auto;
+}
