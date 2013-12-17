@@ -1,8 +1,8 @@
 /** Filename: Module1.js
-    Abstract: AMD-compatible module for Require.js
+    Abstract: JavaScript Module
 **/
 
-define(["jquery", "use!underscore"], function ($, _) {
+App.Module1 = (function ($, _) {
 
 	// Private variable
 	var moduleName = "Module 1";
@@ -20,4 +20,4 @@ define(["jquery", "use!underscore"], function ($, _) {
         }
     };
     
-});
+}(jQuery, _));

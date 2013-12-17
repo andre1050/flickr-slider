@@ -1,8 +1,8 @@
-/** Filename: Module1.js
-    Abstract: Test spec file for Module1.js
+/** Filename: Module2.js
+    Abstract: JavaScript Module
 **/
 
-define(["jquery", "use!underscore", "Module1"], function ($, _, Module1) {
+App.Module2 = (function ($, _, Module1) {
 
 	// Private variable
 	var moduleName = "Module 2";
@@ -20,4 +20,4 @@ define(["jquery", "use!underscore", "Module1"], function ($, _, Module1) {
         }
     };
     
-});
+}(jQuery, _, App.Module1));

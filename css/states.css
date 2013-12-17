@@ -24,3 +24,14 @@
 	color: #fcb712;
 	text-decoration: underline;
 }
+
+/* Image Resize */
+.img-resize-xl {
+	width: 910px;
+	height: 500px;
+}
+
+.img-resize-s {
+	width: 163px;
+	height: 163px;
+}
