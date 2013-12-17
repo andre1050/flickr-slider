@@ -1,0 +1,26 @@
+/* ==========================================================================
+   State.css - Author: Andre Silva | andre1050@gmail.com;
+   ========================================================================== */
+/* STYLING STATES OF LAYOUT ELEMENTS OR MODULES */
+
+
+/* Hover states for photo slider buttons */
+.module-flickr .nav-prev:hover,
+.module-flickr .nav-next:hover {
+	background-color: #000;
+	background-position: center bottom;
+}
+
+/* Content area for Share Widget */ 
+.module-flickr .slider-share:hover .share-buttons { display: block; }
+
+/* Hover and Selected states for photo thumbnails */
+.module-flickr .browser-thumbs .thumb:hover,
+.module-flickr .browser-thumbs .thumb.is-current { border-color: #fcb712; }
+
+/* Hover and Selected states for pagination links */
+.module-flickr .browser-pages .page a:hover,
+.module-flickr .browser-pages .page.is-current a {
+	color: #fcb712;
+	text-decoration: underline;
+}

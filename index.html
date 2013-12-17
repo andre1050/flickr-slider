@@ -13,9 +13,8 @@
         <!-- CSS -->
         <link rel="stylesheet" href="css/base.css">
         <link rel="stylesheet" href="css/layout.css">
-        <link rel="stylesheet" href="css/module.css">
-        <link rel="stylesheet" href="css/state.css">
-        <link rel="stylesheet" href="css/theme.css">
+        <link rel="stylesheet" href="css/modules.css">
+        <link rel="stylesheet" href="css/states.css">
         
         <!-- SHARE THIS SCRIPTS -->
         <script type="text/javascript" src="http://w.sharethis.com/button/buttons.js"></script>
@@ -25,20 +24,20 @@
     </head>
     <body>
 
-        <div class="wrapper">
+        <div id="wrapper">
 
-            <header>
+            <header class="page-header">
                 <h1>Photos</h1>
                 <div class="search-box">
-                    <input name="search-string js-search-string" class="search-input" type="search" />
-                    <span class="search-button js-search-button">
-                        <img src="img/glass.png" alt="Magnifying glass" title="Click to search on Flickr"></img>
-                    </span>
+                    <form name="search-form" class="search-form js-search-form" method="post" action="someBackend.php">
+                        <input name="search-string" class="search-string js-search-string" type="text" placeholder="Search" value="" />
+                        <input name="search-submit" class="search-submit js-search-submit" type="submit" title="Search" value="" />
+                    </form>
                 </div>
             </header>
 
             <!-- FLICKR PHOTO SLIDER -->
-            <section class="flickr-module">
+            <section class="module-flickr">
 
                 <!-- MODULE: SLIDER -->
                 <article class="photo-slider">
@@ -74,49 +73,49 @@
                     <ul class="browser-thumbs js-browser-thumbs">
 
                         <li class="thumb js-thumb" data-index="0">
-                            <img src="http://placehold.it/166x166" alt="Photo" class="img-resize-s" />
+                            <img src="http://placehold.it/162x162" alt="Photo" class="img-resize-s" />
                         </li>
                         <li class="thumb js-thumb" data-index="1">
-                            <img src="http://placehold.it/166x166" alt="Photo" class="img-resize-s" />
+                            <img src="http://placehold.it/162x162" alt="Photo" class="img-resize-s" />
                         </li>
                         <li class="thumb js-thumb" data-index="2">
-                            <img src="http://placehold.it/166x166" alt="Photo" class="img-resize-s" />
+                            <img src="http://placehold.it/162x162" alt="Photo" class="img-resize-s" />
                         </li>
                         <li class="thumb js-thumb" data-index="3">
-                            <img src="http://placehold.it/166x166" alt="Photo" class="img-resize-s" />
+                            <img src="http://placehold.it/162x162" alt="Photo" class="img-resize-s" />
                         </li>
                         <li class="thumb js-thumb" data-index="4">
-                            <img src="http://placehold.it/166x166" alt="Photo" class="img-resize-s" />
+                            <img src="http://placehold.it/162x162" alt="Photo" class="img-resize-s" />
                         </li>
                         <li class="thumb js-thumb" data-index="5">
-                            <img src="http://placehold.it/166x166" alt="Photo" class="img-resize-s" />
+                            <img src="http://placehold.it/162x162" alt="Photo" class="img-resize-s" />
                         </li>
                         <li class="thumb js-thumb" data-index="6">
-                            <img src="http://placehold.it/166x166" alt="Photo" class="img-resize-s" />
+                            <img src="http://placehold.it/162x162" alt="Photo" class="img-resize-s" />
                         </li>
                         <li class="thumb js-thumb is-current" data-index="7">
-                            <img src="http://placehold.it/166x166" alt="Photo" class="img-resize-s" />
+                            <img src="http://placehold.it/162x162" alt="Photo" class="img-resize-s" />
                         </li>
                         <li class="thumb js-thumb" data-index="8">
-                            <img src="http://placehold.it/166x166" alt="Photo" class="img-resize-s" />
+                            <img src="http://placehold.it/162x162" alt="Photo" class="img-resize-s" />
                         </li>
                         <li class="thumb js-thumb" data-index="9">
-                            <img src="http://placehold.it/166x166" alt="Photo" class="img-resize-s" />
+                            <img src="http://placehold.it/162x162" alt="Photo" class="img-resize-s" />
                         </li>
                         <li class="thumb js-thumb" data-index="10">
-                            <img src="http://placehold.it/166x166" alt="Photo" class="img-resize-s" />
+                            <img src="http://placehold.it/162x162" alt="Photo" class="img-resize-s" />
                         </li>
                         <li class="thumb js-thumb" data-index="11">
-                            <img src="http://placehold.it/166x166" alt="Photo" class="img-resize-s" />
+                            <img src="http://placehold.it/162x162" alt="Photo" class="img-resize-s" />
                         </li>
                         <li class="thumb js-thumb" data-index="12">
-                            <img src="http://placehold.it/166x166" alt="Photo" class="img-resize-s" />
+                            <img src="http://placehold.it/162x162" alt="Photo" class="img-resize-s" />
                         </li>
                         <li class="thumb js-thumb" data-index="13">
-                            <img src="http://placehold.it/166x166" alt="Photo" class="img-resize-s" />
+                            <img src="http://placehold.it/162x162" alt="Photo" class="img-resize-s" />
                         </li>
                         <li class="thumb js-thumb" data-index="14">
-                            <img src="http://placehold.it/166x166" alt="Photo" class="img-resize-s" />
+                            <img src="http://placehold.it/162x162" alt="Photo" class="img-resize-s" />
                         </li>
 
                     </ul>

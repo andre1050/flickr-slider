@@ -1,0 +1,149 @@
+/* ==========================================================================
+   Module.css - Author: Andre Silva | andre1050@gmail.com;
+   ========================================================================== */
+/* STYLING MODULES/REUSABLE AREAS OF THE DESIGN */
+
+
+/* FLICKR MODULE: PHOTO SLIDER */
+.module-flickr .photo-slider {
+	border-bottom: 5px solid #FFF;
+	position: relative;
+}
+
+.module-flickr .slider-container,
+.module-flickr .slider-nav {
+	height: 500px;
+	width: 910px;
+}
+
+/* Previous/Next Buttons */
+.module-flickr .slider-nav,
+.module-flickr .nav-prev,
+.module-flickr .nav-next { position: absolute; }
+
+.module-flickr .slider-nav { top: 0; }
+
+.module-flickr .nav-prev,
+.module-flickr .nav-next {
+	border-radius: 50%;
+	cursor: pointer;
+	display: block;
+	height: 60px;
+	text-indent: -5000px;
+	top: 240px;
+	width: 60px;
+}
+.module-flickr .nav-prev {
+	background: url(../img/arrow-prev.png) center top no-repeat;
+	background-color: #000; /* IE 6 - 8 */
+	background-color: rgba(0,0,0,.5);
+	left: 10px;
+}
+.module-flickr .nav-next {
+	background: url(../img/arrow-next.png) center top no-repeat;
+	background-color: #000; /* IE 6 - 8 */
+	background-color: rgba(0,0,0,.5);
+	right: 10px;
+}
+
+/* Author Paragraph */
+.module-flickr .slider-author {
+	font-size: 14px;
+	line-height: 50px;
+	margin: 0;
+	text-align: center;
+}
+
+/* Share Widget */
+.module-flickr .slider-share,
+.module-flickr .share-switch,
+.module-flickr .share-buttons { position: absolute; }
+
+.module-flickr .slider-share {
+	bottom: 0;
+	height: 50px;
+	right: 0;
+	width: 70px;
+}
+
+.module-flickr .share-switch {
+	background-color: #550910;
+	bottom: 0;
+	color: #fcb712;
+	cursor: pointer;
+	display: block;
+	font: 14px/35px "Palatino Linotype", "Book Antiqua", serif;
+	text-align: center;
+	width: 70px;
+}
+
+.module-flickr .share-buttons {
+	background-color: #550910;
+	display: none;
+	left: -140px;
+	height: 80px;
+	padding: 5px 0 0 10px;
+	top: -85px;
+	width: 200px;
+}
+
+.module-flickr .share-buttons > span {
+	height: 60px;
+	width: 60px;
+	overflow: hidden;
+}
+
+/* CSS Triangle */
+.module-flickr .share-buttons:after {
+	border-left: 10px solid transparent;
+	border-right: 10px solid transparent;
+	border-top: 10px solid #550910;
+	content: "";
+	left: 165px;
+	position: absolute;
+	top: 85px;
+}
+
+/* FLICKR MODULE: PHOTO BROWSER */
+.module-flickr .photo-browser {
+	border-bottom: 5px solid #FFF;
+	margin-bottom: 20px;
+	position: relative;
+}
+
+.module-flickr .browser-thumbs {
+	margin: 65px 0 10px -8px;
+	padding: 0;
+	width: 930px;
+}
+
+.module-flickr .browser-thumbs .thumb {
+	border: 2px solid #550910;
+	cursor: pointer;
+	display: inline-block;
+	height: 162px;
+	list-style: none;
+	margin: 8px;
+	padding: 0;
+	width: 162px;
+}
+
+/* Pagination Links */
+.module-flickr .browser-pages {
+	height: 40px;
+	margin: 0;
+	padding: 0;
+	text-align: right;
+}
+
+.module-flickr .browser-pages .page { display: inline-block; }
+
+.module-flickr .browser-pages .page a {
+	color: #FFF;
+	display: inline-block;
+	font-size: 14px;
+	font-weight: bold;
+	line-height: 40px;
+	padding: 0 2px;
+	text-decoration: none;
+}

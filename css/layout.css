@@ -1,10 +1,50 @@
 /* ==========================================================================
    Layout.css - Author: Andre Silva | andre1050@gmail.com;
    ========================================================================== */
+/* STYLING DOCUMENT LAYOUT AND HOLDING THE MODULES TOGETHER */
 
-    /* Styling the document structure and holding the modules together. */
 
-.wrapper {
-    width: 960px;
-    margin: 0 auto;
+/* Body background */
+html,
+body { background: #060c15 url(../img/bg.jpg) 0 140px repeat-x; }
+
+/* Wrapper */
+#wrapper {
+	color: #FFF;
+	font: 12px/18px Arial, Helvetica, sans-serif;
+	margin: 0 auto;
+    width: 910px;
+}
+
+/* Page Header */
+.page-header { height: 140px; }
+
+.page-header h1 {
+	color: #fcb712;
+	float: left;
+	font: bold 72px/140px "Palatino Linotype", "Book Antiqua", serif;
+}
+
+.page-header .search-box {
+	float: right;
+	height: 80px;
+	margin-top: 60px;
+	position: relative;
+	width: 360px;
+}
+
+.page-header .search-string {
+	border: 2px solid #520703;
+	padding: 5px 10px;
+	width: 338px;
+}
+
+.page-header .search-submit {
+	background: url(../img/glass.png) center center no-repeat;
+	display: inline-block;
+	float: right;
+	padding: 0px 15px;
+	position: relative;
+	top: -25px;
+	z-index: 1;
 }
