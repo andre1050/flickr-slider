@@ -2,9 +2,12 @@
     Abstract: JavaScript Module
 **/
 
-App.Main = (function ($, _, Module1, Module2) {
+App.Main = (function ($, _, Flickr) {
+
+	console.log(Flickr);
+
+	Flickr.init();
+
 	
-	console.log(Module1);
-	console.log(Module2);
-	
-}(jQuery, _, App.Module1, App.Module2));
+
+}(jQuery, _, App.Flickr));

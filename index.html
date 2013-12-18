@@ -33,17 +33,17 @@
                 <h1>Photos</h1>
                 <div class="search-box">
                     <form name="search-form" class="search-form js-search-form" method="post" action="someBackend.php">
-                        <input name="search-string" class="search-string js-search-string" type="text" placeholder="Search" value="" />
-                        <input name="search-submit" class="search-submit js-search-submit" type="submit" title="Search" value="" />
+                        <input name="search-string" class="search-string js-search-string" type="text" placeholder="Enter keywords separated by commas" value="" autofocus />
+                        <input name="search-submit" class="search-submit" type="submit" title="Search" value="" />
                     </form>
                 </div>
             </header>
 
             <!-- FLICKR PHOTO SLIDER -->
-            <section class="module-flickr">
+            <section class="module-flickr js-module-flickr">
 
                 <!-- MODULE: SLIDER -->
-                <article class="photo-slider">
+                <article class="photo-slider js-photo-slider">
 
                     <div class="slider-container">
                         <img src="http://placehold.it/910x500" alt="Main photo" class="main-photo js-main-photo img-resize-xl" />
@@ -54,28 +54,28 @@
                         <button class="nav-button nav-next js-nav-next">Next photo</button>
                     </div>
 
-                    <p class="slider-author">
+                    <p class="slider-caption js-slider-caption">
                         Photograph credit: <span class="author-name js-author-name">Alex de Mora</span>
                     </p>
 
                     <div class="slider-share">
-                        <div class="share-buttons js-share-buttons is-visible">
+                        <div class="share-buttons is-visible">
                             <!-- SHARE THIS BUTTONS -->
                             <!-- <span class='st_twitter_vcount' displayText='Tweet'></span>
                             <span class='st_fblike_vcount' displayText='Facebook Like'></span>
                             <span class='st_plusone_vcount' displayText='Google +1'></span> -->
                         </div>
-                        <span class="share-switch js-share-switch">SHARE</span>
+                        <span class="share-switch">SHARE</span>
                     </div>
 
                 </article>
 
                 <!-- MODULE: BROWSER (Inc. Pagination) -->
-                <article class="photo-browser">
+                <article class="photo-browser js-photo-browser">
                     
                     <ul class="browser-thumbs js-browser-thumbs">
 
-                        <li class="thumb js-thumb" data-index="0">
+                        <!-- <li class="thumb js-thumb" data-index="0">
                             <img src="http://placehold.it/163x163" alt="Photo" class="img-resize-s" />
                         </li>
                         <li class="thumb js-thumb" data-index="1">
@@ -119,21 +119,18 @@
                         </li>
                         <li class="thumb js-thumb" data-index="14">
                             <img src="http://placehold.it/163x163" alt="Photo" class="img-resize-s" />
-                        </li>
+                        </li> -->
 
                     </ul>
 
                     <ul class="browser-pages js-browser-pages">
 
-                        <!-- First/Previous -->
-                        <li class="page js-page" data-range="0">
+                        <!-- <li class="page js-page">
                             <a href="#" title="First page">&lt;&lt;</a>
                         </li>
                         <li class="page js-page">
                             <a href="#" title="Previous page">&lt;</a>
                         </li>
-
-                        <!-- Page Number (6 max) -->
                         <li class="page js-page">
                             <a href="#" title="Page 1">1</a>
                         </li>
@@ -152,14 +149,12 @@
                         <li class="page js-page">
                             <a href="#" title="Page 6">6</a>
                         </li>
-
-                        <!-- Next/Last -->
                         <li class="page js-page">
                             <a href="#" title="Next page">&gt;</a>
                         </li>
                         <li class="page js-page">
                             <a href="#" title="Last page">&gt;&gt;</a>
-                        </li>
+                        </li> -->
 
                     </ul>
 
@@ -168,6 +163,20 @@
             </section>
 
         </div>
+
+        <!-- TEMPLATE: photo thumbnail -->
+        <script class="js-template-photo-thumb" type="text/template">
+            <li class="thumb js-thumb" data-index="{{index}}">
+                <img src="{{path}}" alt="" class="img-resize-s" />
+            </li>
+        </script>
+
+        <!-- TEMPLATE: pagination link -->
+        <script class="js-template-page-link" type="text/template">
+            <li class="page js-page {{className}}">
+                <a href="#" data-page="{{number}}">{{label}}</a>
+            </li>
+        </script>
 
         <!-- Vendor Libraries -->
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
@@ -181,8 +190,8 @@
             var App = {};
             // Each module below will register itself directly as a property of the App object.
         </script>
-        <script src="js/modules/Module1.js"></script>
-        <script src="js/modules/Module2.js"></script>
+        <script src="js/modules/Flickr.js"></script>
+        <!--<script src="js/modules/Module2.js"></script>-->
         <script src="js/App.js"></script>
 
     </body>

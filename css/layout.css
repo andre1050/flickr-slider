@@ -48,3 +48,6 @@ body { background: #060c15 url(../img/bg.jpg) 0 140px repeat-x; }
 	top: -25px;
 	z-index: 1;
 }
+
+/* The Flickr Module is hidden on page load - it will be shown after the user as submitted the search form */
+/*.module-flickr { display: none; }*/
