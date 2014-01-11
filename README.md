@@ -1,4 +1,4 @@
 flickr-slider
 =============
 
-Flickr widget pulling photos from a given username
+JavaScript module searching the Flickr API and showing the pictures in a simple interactive gallery.

@@ -18,8 +18,8 @@
         <link rel="stylesheet" href="css/states.css">
         
         <!-- ShareThis Scripts -->
-        <!--<script type="text/javascript" src="http://w.sharethis.com/button/buttons.js"></script>
-        <script type="text/javascript">stLight.options({publisher: "89ec8371-d58b-4e21-b273-a6906e6e10dd", doNotHash: false, doNotCopy: false, hashAddressBar: true});</script>-->
+        <script type="text/javascript" src="http://w.sharethis.com/button/buttons.js"></script>
+        <script type="text/javascript">stLight.options({publisher: "89ec8371-d58b-4e21-b273-a6906e6e10dd", doNotHash: false, doNotCopy: false, hashAddressBar: true});</script>
 
         <!-- Modernizr -->
         <script src="js/vendor/modernizr-2.6.2.min.js"></script>
@@ -32,7 +32,7 @@
             <header class="page-header">
                 <h1>Photos</h1>
                 <div class="search-box">
-                    <form name="search-form" class="search-form js-search-form" method="post" action="someBackend.php">
+                    <form name="search-form" class="search-form js-search-form" method="post">
                         <input name="search-string" class="search-string js-search-string" type="text" placeholder="Enter keywords separated by commas" value="" autofocus />
                         <input name="search-submit" class="search-submit" type="submit" title="Search" value="" />
                     </form>
@@ -61,9 +61,9 @@
                     <div class="slider-share">
                         <div class="share-buttons is-visible">
                             <!-- SHARE THIS BUTTONS -->
-                            <!-- <span class='st_twitter_vcount' displayText='Tweet'></span>
+                            <span class='st_twitter_vcount' displayText='Tweet'></span>
                             <span class='st_fblike_vcount' displayText='Facebook Like'></span>
-                            <span class='st_plusone_vcount' displayText='Google +1'></span> -->
+                            <span class='st_plusone_vcount' displayText='Google +1'></span>
                         </div>
                         <span class="share-switch">SHARE</span>
                     </div>
@@ -73,59 +73,12 @@
                 <!-- MODULE: BROWSER (Inc. Pagination) -->
                 <article class="photo-browser js-photo-browser">
                     
-                    <ul class="browser-thumbs js-browser-thumbs">
-
-                        <!-- <li class="thumb js-thumb" data-index="0">
-                            <img src="http://placehold.it/163x163" alt="Photo" class="img-resize-s" />
-                        </li>
-                        <li class="thumb js-thumb" data-index="1">
-                            <img src="http://placehold.it/163x163" alt="Photo" class="img-resize-s" />
-                        </li>
-                        <li class="thumb js-thumb" data-index="2">
-                            <img src="http://placehold.it/163x163" alt="Photo" class="img-resize-s" />
-                        </li>
-                        <li class="thumb js-thumb" data-index="3">
-                            <img src="http://placehold.it/163x163" alt="Photo" class="img-resize-s" />
-                        </li>
-                        <li class="thumb js-thumb" data-index="4">
-                            <img src="http://placehold.it/163x163" alt="Photo" class="img-resize-s" />
-                        </li>
-                        <li class="thumb js-thumb" data-index="5">
-                            <img src="http://placehold.it/163x163" alt="Photo" class="img-resize-s" />
-                        </li>
-                        <li class="thumb js-thumb" data-index="6">
-                            <img src="http://placehold.it/163x163" alt="Photo" class="img-resize-s" />
-                        </li>
-                        <li class="thumb js-thumb is-current" data-index="7">
-                            <img src="http://placehold.it/163x163" alt="Photo" class="img-resize-s" />
-                        </li>
-                        <li class="thumb js-thumb" data-index="8">
-                            <img src="http://placehold.it/163x163" alt="Photo" class="img-resize-s" />
-                        </li>
-                        <li class="thumb js-thumb" data-index="9">
-                            <img src="http://placehold.it/163x163" alt="Photo" class="img-resize-s" />
-                        </li>
-                        <li class="thumb js-thumb" data-index="10">
-                            <img src="http://placehold.it/163x163" alt="Photo" class="img-resize-s" />
-                        </li>
-                        <li class="thumb js-thumb" data-index="11">
-                            <img src="http://placehold.it/163x163" alt="Photo" class="img-resize-s" />
-                        </li>
-                        <li class="thumb js-thumb" data-index="12">
-                            <img src="http://placehold.it/163x163" alt="Photo" class="img-resize-s" />
-                        </li>
-                        <li class="thumb js-thumb" data-index="13">
-                            <img src="http://placehold.it/163x163" alt="Photo" class="img-resize-s" />
-                        </li>
-                        <li class="thumb js-thumb" data-index="14">
-                            <img src="http://placehold.it/163x163" alt="Photo" class="img-resize-s" />
-                        </li> -->
-
-                    </ul>
+                    <!-- CONTAINER FOR PHOTO THUMBNAILS -->
+                    <ul class="browser-thumbs js-browser-thumbs"></ul>
 
                     <ul class="browser-pages js-browser-pages">
 
-                        <!-- <li class="page js-page">
+                        <li class="page js-page">
                             <a href="#" title="First page">&lt;&lt;</a>
                         </li>
                         <li class="page js-page">
@@ -154,7 +107,7 @@
                         </li>
                         <li class="page js-page">
                             <a href="#" title="Last page">&gt;&gt;</a>
-                        </li> -->
+                        </li>
 
                     </ul>
 
@@ -165,14 +118,14 @@
         </div>
 
         <!-- TEMPLATE: photo thumbnail -->
-        <script class="js-template-photo-thumb" type="text/template">
+        <script id="templatePhotoThumb" type="text/template">
             <li class="thumb js-thumb" data-index="{{index}}">
                 <img src="{{path}}" alt="" class="img-resize-s" />
             </li>
         </script>
 
         <!-- TEMPLATE: pagination link -->
-        <script class="js-template-page-link" type="text/template">
+        <script id="templatePageLink" type="text/template">
             <li class="page js-page {{className}}">
                 <a href="#" data-page="{{number}}">{{label}}</a>
             </li>
@@ -191,7 +144,6 @@
             // Each module below will register itself directly as a property of the App object.
         </script>
         <script src="js/modules/Flickr.js"></script>
-        <!--<script src="js/modules/Module2.js"></script>-->
         <script src="js/App.js"></script>
 
     </body>

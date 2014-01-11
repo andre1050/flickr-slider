@@ -5,7 +5,9 @@
 App.Flickr = (function ($, _) {
 	"use strict";
 
-	// Keep a reference to each DOM element we'll be working with
+
+	// DOM ELEMENTS
+	// Keep a unique reference to every DOM element that we need to control from our app.
 	var uiElements = {
 		container: $(".js-module-flickr"),
 		form: {
@@ -26,123 +28,155 @@ App.Flickr = (function ($, _) {
 			container: $(".js-photo-browser"),
 			thumbs: $(".js-browser-thumbs"),
 			pagination: $(".js-browser-pages")
+		},
+		templates: {
+			thumbnail: $("#templatePhotoThumb").html(),
+			page: $("#templatePageLink").html()
 		}
 	};
 
-	// Keep a reference to each of the DOM templates
-	var uiTemplates = {
-		photoThumb: $(".js-template-photo-thumb").html(),
-		pageLink: $(".js-template-page-link").html()
-	}
 
-	// SearchForm Object: all methods related to the search form go here
-	var searchForm = {
-		bindCallbacks: function () {
+	// FORM MANAGER
+	// Handle the form submission and control input validation.
+	var formManager = {
+		// Default search string
+		currentString: "beach, carribean",
+		// Capture submit event to handle input valition and get photos through the API.
+		bindEvents: function () {
 			uiElements.form.container.submit(function () {
 				var searchString = uiElements.form.searchString.val();
-				// Basic form validation: accept if form is not empty
-				if (searchString.trim().length > 0) {
-					searchForm.resetFields();
-					pageManager.resetPagination();
-					webService.methods.searchPhotos(searchString);
+				searchString = searchString.trim();
+				// Basic form validation: accept input if it's not empty.
+				if (searchString.length > 0) {
+					formManager.currentString = searchString;
+					formManager.resetForm();
+					photoManager.getPhotos();
 				} else {
+					// TODO: show form validation message.
 					console.error("Cannot submit an empty search form");
 				}
+				// Prevent default behaviour
 				return false;
 			});
 		},
-		resetFields: function () {
+		// Reset form upon submission
+		resetForm: function () {
 			uiElements.form.container.trigger("reset");
 		}
 	};
 
-	// PhotoManager Object: all methods related to the photos go here
-	var photoManager = {
-		photos: [],
-		addPhoto: function (photoObject) {
-			// This method will add a new photo to the array
-			// Or, if the photo is already in the array, add a new property to that photo
-			//console.log("Add Photo");
-			var photoWasFound = false;
-			var photoIndex = 0;
-			for (var i = 0, total = photoManager.photos.length; i < total; i++) {
-				if (photoManager.photos[i].id === photoObject.id) {
-					photoWasFound = true;
-					photoIndex = i;
-					break;
-				}
-			}
-			if (photoWasFound) {
-				$.extend(photoManager.photos[photoIndex], photoObject);
-			} else {
-				photoManager.photos.push(photoObject);
-			}
-		}
-	}
 
-	// PageManager Object: all methods related to pagination through results go here
-	var pageManager = {
-		currentPage: 1,
-		totalPages: 1,
-		setTotalPages: function (numPages) {
-			// We'll limit the number of pages to a maximum of 8
-			this.totalPages = (numPages < 8) ? numPages : 8;
+	// SLIDER MANAGER
+	// Manage the main slider and the previous/next buttons.
+	var sliderManager = {
+		currentIndex: 0,
+		navPrev: function () {
+			if (sliderManager.currentIndex > 0) {
+				var newIndex = sliderManager.currentIndex - 1;
+				sliderManager.updateIndex(newIndex);
+			}
 		},
-		addPaginationLinks: function () {
+		navNext: function () {
+			if (sliderManager.currentIndex < photoManager.photosArray.length - 1) {
+				var newIndex = sliderManager.currentIndex + 1;
+				sliderManager.updateIndex(newIndex);
+			}
+		},
+		updateIndex: function (index) {
 
-			// We'll use Underscore as a templating system
-			// As a personal preference, set it to use Mustache-style synthax
+			sliderManager.currentIndex = index || 0;
+
+			// Update highlighted class in the UI
+			var thumbnails = uiElements.browser.thumbs.children();
+			thumbnails.removeClass("is-current");
+			thumbnails.filter("[data-index='" + sliderManager.currentIndex + "']").addClass("is-current");
+
+			// Update main photo source
+			var imgSrc = photoManager.photosArray[sliderManager.currentIndex].sizes.large;
+			uiElements.slider.mainPhoto.attr("src", imgSrc);
+
+			// Update author name
+			sliderManager.updateAuthorName();
+		},
+		updateAuthorName: function () {
+			var container = uiElements.caption.authorName;
+			container.html(photoManager.photosArray[sliderManager.currentIndex].author);
+		},
+		bindNavEvents: function () {
+			uiElements.slider.prevButton.click(sliderManager.navPrev);
+			uiElements.slider.nextButton.click(sliderManager.navNext);
+		}
+	};
+
+
+	// BROWSER MANAGER
+	// All methods relative to the clickable photo thumbnails go here.
+	var browserManager = {
+		buildWall: function () {
+
+			// As a personal preference, we want Underscore to use Mustache's template synthax.
 			_.templateSettings = { interpolate: /\{\{(.+?)\}\}/g };
 
-			var container = uiElements.browser.pagination;
-			var template = uiTemplates.pageLink;
-
-			var output = "";
-
-			// FIRST PAGE
-			output += _.template(template, { label: "&lt;&lt;", number: 1, className: "is-current" });
-
-			// OTHER PAGES
-			for (var number = 0; number < this.totalPages; number++) {
-				var label, className = "";
-				output += _.template(template, { 
-					label: number + 1, 
-					number: number + 1, 
-					className: className 
-				});
+			var container = uiElements.browser.thumbs;
+			var template = uiElements.templates.thumbnail;
+			var photosArray = photoManager.photosArray;
+			
+			var data, output = "";
+			// For each photo, parse the template to produce a usable list item.
+			for (var index = 0, total = photosArray.length; index < total; index++) {
+				data = { index: index, path: photosArray[index].sizes.thumb };
+				output += _.template(template, data);
 			}
 
-			// LAST PAGE
-			output += _.template(template, { label: "&gt;&gt;", number: pageManager.totalPages, className: "" });
-			
-			// INJECT OUTPUT IN THE DOM AND BIND CLICK EVENTS
-			if (this.totalPages > 1) {
-				container.html(output);
-				this.bindPaginationEvents();
-			}
-			
+			// Inject parsed templates in the DOM and append click callbacks.
+			container.html(output);
+			browserManager.bindWallEvents();
 		},
-		bindPaginationEvents: function () {
-			var pageLinks = uiElements.browser.pagination.children();
-			pageLinks.click(function () {
-				
+		bindWallEvents: function () {
+
+			var thumbnails = uiElements.browser.thumbs.children();
+			thumbnails.click(function () {
+				var index = $(this).attr("data-index");
+				sliderManager.updateIndex(Number(index));
 			});
-		},
-		resetPagination: function () {
-			this.currentPage = 1;
-			console.log("Reset Pages");
+
 		}
+	};
+
+
+	// PHOTO MANAGER
+	// Manage the photos loaded through the API.
+	var photoManager = {
+		// Array to keep all the photos after they're parsed.
+		photosArray: [],
+		// Main method that starts the request to the API and asynchronously collects all data for all pictures.
+		getPhotos: function () {
+
+			// Query the Flickr API for photos that match the search criteria;
+			// To get the full data for one photo, we need to make 3 calls, which
+			// are all handled by the WebService method.
+			webService.methods.searchPhotos(function (photos) {
+				photoManager.photosArray = photos;
+
+				// Build list of clickable photo thumbnails.
+				browserManager.buildWall();
+
+				// Set the first photo from the array the one on the main slider.
+				sliderManager.updateIndex();
+
+				// Bind slider navigation events (Previous/Next)
+				sliderManager.bindNavEvents();
+
+			});
+
+		},
+
 	}
 
-	// UIManager: building the UI components go here
-	// var uiManager = {
-	// 	build: function () {
-	// 		console.log("Building UI");
-	// 		pageManager.addPaginationLinks();
-	// 	}
-	// }
 
-	// WebService Object: all methods related to the Flickr API and parsing of data go here
+	// WEB SERVICE
+	// All methods related to the collection and parsing of data through the Flickr API will be kept here
+	// along with a list of global parameters (used for all requests) and local parameters (used for an individual request only).
 	var webService = {
 		baseUrl: "http://api.flickr.com/services/rest/?",
 		globalParams: {
@@ -151,56 +185,62 @@ App.Flickr = (function ($, _) {
 			nojsoncallback: 1
 		},
 		methods: {
-			searchPhotos: function (searchString) {
+			searchPhotos: function (callback) {
 				var methodParams = {
 					method: "flickr.photos.search",
-					text: encodeURIComponent(searchString),
-					per_page: 15,
-					page: pageManager.currentPage
+					text: encodeURIComponent(formManager.currentString),
+					per_page: 15
 				};
+
+				// STEP 1 - SEARCH PICTURES
 				var callUrl = webService.helpers.composeUrl(methodParams);
 				$.getJSON(callUrl, function (results) {
 
-					console.log(results);
-
-					// Set pagination by passing number of pages from the API
-					var numPages = results.photos.pages;
-					pageManager.setTotalPages(numPages);
-					pageManager.addPaginationLinks();
-
-					// Add each photo to the photos array
 					var photoArray = results.photos.photo;
-					for (var i = 0, total = photoArray.length; i < total; i++) {
-						var photoId = photoArray[i].id;
-						photoManager.addPhoto({ id: photoId });
-						webService.methods.getPhotoInfo(photoId);
-					}
+					var photoCount = photoArray.length;
+					var parsedPhotos = [];
+					var parseCounter = 0;
 
+					for (var i = 0; i < photoCount; i++) {
+						var photoId = photoArray[i].id;
+						// STEP 2 - GET PHOTO INFO
+						webService.methods.getPhotoInfo(photoId, function (author, photoId) {
+							// STEP 3 - GET PHOTO SIZES
+							webService.methods.getPhotoSizes(photoId, function (thumb, large, photoId) {
+								parseCounter++; 
+								parsedPhotos.push( { id: photoId, author: author, sizes: {thumb: thumb, large: large}} );
+								if (parseCounter === photoCount) {
+									// ALL REQUESTS COMPLETE - TRIGGER CALLBACK
+									callback(parsedPhotos);
+								}
+							});
+						});
+					}
 				});
 			},
-			getPhotoInfo: function (photoId) {
+			getPhotoInfo: function (photoId, callback) {
 				var methodParams = {
 					method: "flickr.photos.getInfo",
 					photo_id: photoId
 				};
 				var callUrl = webService.helpers.composeUrl(methodParams);
 				$.getJSON(callUrl, function (results) {
-					var photoId = results.photo.id;
-					var photoAuthor = results.photo.owner.username;
-					photoManager.addPhoto({ id: photoId, author: photoAuthor });
-					webService.methods.getPhotoSizes(photoId);
+					var author = results.photo.owner.username;
+					callback(author, photoId);
 				});
 			},
-			getPhotoSizes: function (photoId) {
+			getPhotoSizes: function (photoId, callback) {
 				var methodParams = {
 					method: "flickr.photos.getSizes",
 					photo_id: photoId
 				};
 				var callUrl = webService.helpers.composeUrl(methodParams);
 				$.getJSON(callUrl, function (results) {
-					var photoThumb = results.sizes.size[1].source; // Large square (150 x 150)
-					var photoMain = results.sizes.size[7].source; // Medium (800 x 600)
-					photoManager.addPhoto({ id: photoId, sizes: { thumb: photoThumb, main: photoMain} });
+					// The number of sizes is variable and not directly identifiable through a key;
+					// For simplicity, we'll use the first size for the thumbnail, and the last for the main picture. 
+					var thumb = results.sizes.size.shift().source;
+					var large = results.sizes.size.pop().source;
+					callback(thumb, large, photoId);
 				});
 			}
 		},
@@ -222,7 +262,10 @@ App.Flickr = (function ($, _) {
 	// Expose public variables and functions to be accessible outside of the module
     return {
         init: function () {
-        	searchForm.bindCallbacks();
+        	// Initialising the module consists in loading the photos from the Flickr API (on page load a default search string is used)
+        	// and binding the form submit callback.
+        	photoManager.getPhotos();
+        	formManager.bindEvents();
         }
     };
     
