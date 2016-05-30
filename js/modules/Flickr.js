@@ -180,7 +180,7 @@ App.Flickr = (function ($, _) {
 	var webService = {
 		baseUrl: "http://api.flickr.com/services/rest/?",
 		globalParams: {
-			api_key: "399df825dce9f5c78319836b6e53d3a9",
+			api_key: "a3647fec36879993c62eb3334a14d528",
 			format: "json",
 			nojsoncallback: 1
 		},
